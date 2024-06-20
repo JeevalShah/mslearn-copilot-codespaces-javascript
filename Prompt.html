@@ -1,0 +1,21 @@
+<form>
+    <input type="text" name="myText" placeholder="Enter text">
+    <button type="submit" id="submitButton">Submit</button>
+</form>
+<div id="result"></div>
+<script>
+    document.getElementById("submitButton").addEventListener("click", function(event) {
+        event.preventDefault();
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/generate", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                document.getElementById("result").innerHTML = xhr.responseText;
+            }
+        };
+        var data = JSON.stringify({ text: document.getElementsByName("myText")[0].value });
+        xhr.send(data);
+    });
+</script>
+</form>
